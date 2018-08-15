@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MarkdownPad Document</title>
+<title>Git</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -468,9 +468,226 @@ vertical-align:1px;
 </style>
 </head>
 <body>
-<p>这是一个测试页</p>
-<p>查看Git命令 点击 —&gt; <a href="./git.html">GIT</a></p>
+<h1 id="-">安装</h1>
+<ul>
+<li><h3 id="linux">Linux</h3>
+<ul>
+<li>Linux下</li></ul>
+</li></ul>
+<pre><code>sudo apt-get install git
+</code></pre><ul>
+<li>老一点的Debian或Ubuntu Linux，要把命令改为</li></ul>
+<pre><code>sudo apt-get install git-core
+</code></pre><ul>
+<li><h3 id="windows">Windows</h3>
+<ul>
+<li>在Windows上使用Git，可以从Git官网直接<a href="https://git-scm.com/downloads">下载安装程序</a>，（网速慢的同学请移步<a href="https://pan.baidu.com/s/1kU5OCOB#list/path=%2Fpub%2Fgit">国内镜像</a>），然后按默认选项安装即可。安装完成后，在开始菜单里找到“Git”-&gt;“Git Bash”，蹦出一个类似命令行窗口的东西，就说明Git安装成功！<br><img src="https://cdn.liaoxuefeng.com/cdn/files/attachments/001384907073134ef6feff559cf4ce3a2c5c588d2831c0a000/0" alt=""></li></ul>
+</li><li><h3 id="mac-os-x">Mac OS X</h3>
+<ul>
+<li><p>一是安装homebrew，然后通过homebrew安装Git，具体方法请参考homebrew的文档：<a href="http://brew.sh/">http://brew.sh/</a>。</p>
+</li><li><p>第二种方法更简单，也是推荐的方法，就是直接从AppStore安装Xcode，Xcode集成了Git，不过默认没有安装，你需要运行Xcode，选择菜单“Xcode”-&gt;“Preferences”，在弹出窗口中找到“Downloads”，选择“Command Line Tools”，点“Install”就可以完成安装了。</p>
+</li></ul>
+</li></ul>
+<p>安装完成后，可以在shell或bash中查看git</p>
+<pre><code>git --version
+</code></pre><p>显示当前安装的git版本信息，说明已经安装成功了。</p>
+<h1 id="-">配置</h1>
+<ul>
+<li>提交名字</li></ul>
+<pre><code>git config --global user.name &quot;yourname&quot;
+</code></pre><ul>
+<li>提交邮箱</li></ul>
+<pre><code>git config --global user.email &quot;yourname@example.com&quot;
+</code></pre><ul>
+<li>创建SSH</li></ul>
+<pre><code>ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
+</code></pre><ul>
+<li>将新生成的SSH全部拷贝并添加到远程仓库的相应设置中。</li></ul>
+<h1 id="-">本地使用</h1>
+<h2 id="-">- 提交</h2>
+<ul>
+<li>初始化本地仓库 </li></ul>
+<pre><code>git init
+</code></pre><ul>
+<li>检查多余的空白字符 </li></ul>
+<pre><code>git diff --check
+</code></pre><ul>
+<li>将文件放入暂存区<ul>
+<li>存放指定文件</li></ul>
+</li></ul>
+<pre><code>git add filename
+</code></pre><ul>
+<li>将文件的修改、新建添加到暂存区</li></ul>
+<pre><code>git add . //注意add后面是一个点,你没看错
+</code></pre><ul>
+<li>将文件的修改、删除添加到暂存区</li></ul>
+<pre><code>git add -u
+</code></pre><ul>
+<li>将文件的修改、删除和新建添加到暂存区</li></ul>
+<pre><code>git add -A
+</code></pre><ul>
+<li>查看文件修改与提交情况 </li></ul>
+<pre><code>git status
+</code></pre><ul>
+<li>将修改提交版本库 </li></ul>
+<pre><code>git commit -m &quot;desc&quot;
 
+// 多行desc
+git commit -m &#39;
+1. log1
+2. log2
+3. log3
+&#39;
+</code></pre><ul>
+<li>重新提交 </li></ul>
+<pre><code>git commit --amend -m &quot;desc&quot;
+</code></pre><ul>
+<li>撤销对工作区文件的修改，若修改后没有放到暂存区，则与上个版本一致，若修改后放到暂存区，则和暂存区一致。</li></ul>
+<pre><code>git checkout -- filename
+</code></pre><ul>
+<li>取消暂存区的指定文件</li></ul>
+<pre><code>git reset HEAD filename
+</code></pre><ul>
+<li>删除本地文件，不再纳入版本管理</li></ul>
+<pre><code>git rm filename
+</code></pre><ul>
+<li>不纳入版本管理，但本地不删除文件</li></ul>
+<pre><code>git rm --cached filename
+</code></pre><ul>
+<li>查看提交日志</li></ul>
+<pre><code>git log  // 从近到远显示提交日志
+
+git log --pretty=oneline  // 将每个提交记录放在一行显示，其它参数：oneline、short、full、fuller等
+</code></pre><h2 id="-">- 回退</h2>
+<ul>
+<li>记录回退的命令</li></ul>
+<pre><code>git reflog
+</code></pre><ul>
+<li>回退到上一版本</li></ul>
+<pre><code>git reset --hard HEAD
+</code></pre><ul>
+<li>回退到指定版本</li></ul>
+<pre><code>git reset --hard 哈希值  // 哈希值可以使用reflog命令查看
+</code></pre><h2 id="-">- 分支</h2>
+<ul>
+<li>查看分支</li></ul>
+<pre><code>git branch
+</code></pre><ul>
+<li>创建分支</li></ul>
+<pre><code>git branch branchname
+</code></pre><ul>
+<li>切换分支</li></ul>
+<pre><code>git checkout branchname
+
+git checkout -b branchname  // 创建并切换到该分支
+git checkout -f branchname  // 强制切换到该分支
+</code></pre><ul>
+<li>删除分支</li></ul>
+<pre><code>git branch -D branchname
+</code></pre><ul>
+<li>合并分支</li></ul>
+<pre><code>git merge branchname
+</code></pre><ul>
+<li>查看合并记录</li></ul>
+<pre><code>git log --graph --pretty=oneline --abbrev-commit  // 查看分支合并情况
+git branch --merged  // 查看已合并到当前分支的分支、上游分支
+git branch --no-merged  // 查看尚未合并的分支
+</code></pre><h2 id="-git-">- 操作git中的文件</h2>
+<ul>
+<li>查看git占用空间</li></ul>
+<pre><code>du -sh.git
+</code></pre><ul>
+<li>查找git中的文件</li></ul>
+<pre><code>git verify-pack -v .git/objects/pack/pack-*.idx | sort -k 3 -g | tail -5  // 找出git中占空间最大的前5个文件的id
+
+git rev-list --objects --all | grep .  // 查看文件列表，可以和grep一起使用，grep后跟需要查找的文件名或id
+</code></pre><ul>
+<li>删除匹配的*.rar文件</li></ul>
+<pre><code>git filter-branch --force --index-filter &#39;git rm --cached --ignore-unmatch *.rar&#39; --prune-empty --tag-name-filter cat -- --all
+</code></pre><ul>
+<li>回收空间</li></ul>
+<pre><code>rm -rm .git/refs/original
+git reflog expire --expire=now --all
+git gc --prune=now
+git gc --aggressive --prune=now
+</code></pre><h2 id="-">- 比较</h2>
+<ul>
+<li>比较工作区与暂存区的差异</li></ul>
+<pre><code>git diff
+</code></pre><ul>
+<li>比较工作区与当前分支库的差异</li></ul>
+<pre><code>git diff HEAD
+git diff HEAD -- path  // 与当前分支库同一目录比较
+</code></pre><ul>
+<li>比较暂存区与版本库的差异</li></ul>
+<pre><code>git diff --cached (或 --staged)
+</code></pre><ul>
+<li>比较不同版本库中不同文件的差异</li></ul>
+<pre><code>git diff HEAD:filename HEAD:filename
+</code></pre><ul>
+<li>查看每次提交差异</li></ul>
+<pre><code>git log -p -2  // 查询每次提交的行差异， 2查询的是提交次数，-p是展开显示每次提交的内容差异
+
+git log -U1 --word-diff  // 查询每次提交的单词差异
+
+git log --stat  // 显示改动的概要信息
+</code></pre><h2 id="-">- 标签</h2>
+<ul>
+<li>查看标签</li></ul>
+<pre><code>git tag
+</code></pre><ul>
+<li>创建标签</li></ul>
+<pre><code>git tag content  // content填写标签内容
+</code></pre><ul>
+<li>删除本地标签</li></ul>
+<pre><code>git tag -d content
+</code></pre><ul>
+<li>发布标签</li></ul>
+<pre><code>git push -u origin content
+</code></pre><ul>
+<li>删除远程标签</li></ul>
+<pre><code>git push origin --delete tag content
+</code></pre><h1 id="-">远程操作</h1>
+<ul>
+<li>查看仓库信息</li></ul>
+<pre><code>git remote
+</code></pre><ul>
+<li>克隆远程仓库到本地</li></ul>
+<pre><code>git clone [url]  // [url]从远程仓库获取
+</code></pre><ul>
+<li>添加远程仓库</li></ul>
+<pre><code>git remote add [name] [url]
+</code></pre><ul>
+<li>将远程仓库分支添加到本地</li></ul>
+<pre><code>git fetch origin mbranchname
+</code></pre><ul>
+<li>更新分支</li></ul>
+<pre><code>git pull  // 更新当前分支
+git pull branchname master  // 获取并合并远程分支到本地master分支
+git pull origin branchname  // 将远程仓库分支拉取到本地
+</code></pre><ul>
+<li>推送分支</li></ul>
+<pre><code>git push  // 向远程仓库推送当前分支
+git push -f ...  // 强制推送
+git push branchname master  // 向远程仓库推送master分支
+git push origin branchname  // 将本地仓库提交到远程仓库
+git push -u origin branchname  // 第一次推送时需要 -u 参数
+</code></pre><ul>
+<li>合并分支</li></ul>
+<pre><code>git merge fork  // 将fork分支合并到当前分支
+git checkout fork a.c b.c  // 将fork分支的a.c b.c文件强制覆盖当前分支的对应文件
+git merge origin branchname  // 将本地分支与远程分支合并
+git mergetool  // 使用工具比较查看冲突
+</code></pre><ul>
+<li>将最近两次提交合并为一个提交，并强制提交到远程仓库</li></ul>
+<pre><code>git reset --soft HEAD
+git commit -m &quot;...&quot;
+git push --force
+</code></pre><ul>
+<li><em>实例</em><br><font color="#0E6DB0">将共享库添加到自己的仓库并拉到本地</font></li></ul>
+<pre><code>git remote add gitignore https://github.com/github/gitignore
+git pull origin gitignore
+</code></pre>
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
